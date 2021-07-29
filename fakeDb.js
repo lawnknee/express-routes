@@ -1,23 +1,21 @@
 const { NotFoundError } = require("./expressError");
 
-// const items = [];
 
-
-/** Datastore for items on a shopping list */
+/** Item class for storing items on a shopping list */
 
 class Item {
 
-    static itemsList = [];
+  static itemsList = [];
 
-    static _get(name) {
-        
-        for (let item of Item.itemsList) {
-            if (item.name === name) {
-                return item;
-            }
-        }
-        throw new NotFoundError(`Sorry, ${name} is not on the shopping list.`);
+  static _get(name) {
+      
+    for (let item of Item.itemsList) {
+      if (item.name === name) {
+          return item;
+      }
     }
+    throw new NotFoundError(`Sorry, ${name} is not on the shopping list.`);
+  }
 
   /** Returns list of all items. */
   static all() {
@@ -30,21 +28,22 @@ class Item {
   }
 
   /** Add new item and return item. */
-    static add(name, price) {
-        let item = { name, price }
-        Item.itemsList.push(item);
+  static add(name, price) {
+    let item = { name, price }
+      Item.itemsList.push(item);
   }
 
   /** Modify item and returns it. Throws error if cannot find. */
   static modify(old_name, new_name, new_price) {
     Item._get(old_name);  // using just for side-effect of error
 
+    // Refactor using .map() to modify one or more elements in an array
     for (let item of Item.itemsList) {
-        if (item.name === old_name) {
-            item.name = new_name;
-            item.price = new_price;  
-            return item;          
-        }
+      if (item.name === old_name) {
+        item.name = new_name;
+        item.price = new_price;  
+        return item;          
+      }
     }
   }
 
@@ -54,10 +53,12 @@ class Item {
 
     let itemIndex;
 
+    // Refactor using .filter()
+
     for (let i = 0; i < Item.itemsList.length; i++) {
-        if (Item.itemsList[i].name === name) {
-            itemIndex = i;
-        }
+      if (Item.itemsList[i].name === name) {
+        itemIndex = i;
+      }
     }
 
     Item.itemsList.splice(itemIndex, 1);
@@ -81,16 +82,18 @@ Item.add('apple', 1.55);
 
 // console.log(Item.get('icecream')); // error
 
-Item.modify('lettuce', 'green lettuce', 2.50);
+// Item.modify('lettuce', 'green lettuce', 2.50);
 
-Item.delete('apple');
-console.log(Item.all());
+// Item.delete('apple');
+// console.log(Item.all());
 
 // Item.delete('potato'); // error
 
 
-const items = Item.all();
+// const items = Item.all();
 
-console.log(items);
+// console.log(items);
 
-// module.exports = { items };
+module.exports = { 
+  Item,
+};
