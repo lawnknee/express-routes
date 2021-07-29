@@ -29,8 +29,10 @@ class Item {
 
   /** Add new item and return item. */
   static add(name, price) {
-    let item = { name, price }
-      Item.itemsList.push(item);
+    let item = { name, price };
+    Item.itemsList.push(item);
+    
+    return item;
   }
 
   /** Modify item and returns it. Throws error if cannot find. */
@@ -69,10 +71,10 @@ class Item {
 
 // const shoppingList = new Item();
 
-Item.add('popsicle', 1.45);
-Item.add('cheerios', 3.40);
-Item.add('lettuce', 2.00);
-Item.add('apple', 1.55);
+// Item.add('popsicle', 1.45);
+// Item.add('cheerios', 3.40);
+// Item.add('lettuce', 2.00);
+// Item.add('apple', 1.55);
 
 // console.log('This is what item is', Item.itemsList);
 
@@ -94,6 +96,4 @@ Item.add('apple', 1.55);
 
 // console.log(items);
 
-module.exports = { 
-  Item,
-};
+module.exports = Item;
